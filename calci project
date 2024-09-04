@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator</title>
+  
+</head>
+<body>
+  <h1>The Calculator was created by Sulfiya.</h1>
+  <form name="calc">
+    <table>
+      <tr>
+        <td colspan="4">
+          <input type="text" id="answer" size="16" readonly>
+        </td>
+      </tr>
+      <tr>
+        <td><input type="button" value="1" class="num"></td>
+        <td><input type="button" value="2" class="num"></td>
+        <td><input type="button" value="3" class="num"></td>
+        <td><input type="button" value="+" class="operator"></td>
+      </tr>
+      <tr>
+        <td><input type="button" value="4" class="num"></td>
+        <td><input type="button" value="5" class="num"></td>
+        <td><input type="button" value="6" class="num"></td>
+        <td><input type="button" value="-" class="operator"></td>
+      </tr>
+      <tr>
+        <td><input type="button" value="7" class="num"></td>
+        <td><input type="button" value="8" class="num"></td>
+        <td><input type="button" value="9" class="num"></td>
+        <td><input type="button" value="*" class="operator"></td>
+      </tr>
+      <tr>
+        <td><input type="button" value="C" id="clear"></td>
+        <td><input type="button" value="0" class="num"></td>
+        <td><input type="button" value="=" id="equals"></td>
+        <td><input type="button" value="/" class="operator"></td>
+      </tr>
+    </table>
+  </form>
+</body>
+</html>
+<style>
+    body {
+      
+      text-align: center;
+      background-color:lightsteelblue;
+    }
+    h1 {
+      color: white;
+    }
+    table {
+      margin: auto;
+      background-color: green;
+      width: 325px;
+      text-align: center;
+      border-radius: 6px;
+    }
+    input {
+      outline: 0;
+      border: 0;
+      color: black;
+      background-color: #fff;
+      border-radius: 4px;
+      width: 60px;
+      height: 50px;
+      margin: 5px;
+      font-size: 20px;
+      box-shadow: 0 4px rgba(0, 0, 0, 0.2);
+    }
+    input:hover {
+      color: white;
+      background-color: rebeccapurple;
+      box-shadow: 0 4px #644294;
+    }
+    input:active {
+      top: 4px;
+      color: var(#34e970);
+      background-color: #8F5FD4;
+      box-shadow: none;
+    }
+    #answer {
+      width: 270px;
+      font-size: 26px;
+      text-align: center;
+      background-color: #F1FAEB;
+    }
+    .operator {
+      background-color:  #e9349b;
+    }
+    .operator:hover {
+      background-color:#1c83af ;
+      box-shadow: 0 4px #39b1d6;
+    }
+    .operator:active {
+      top: 4px;
+      box-shadow: none;
+    }
+    #clear {
+      background-color: #b62775;
+      margin-bottom: 15px;
+    }
+    #clear:hover {
+      background-color: #F297A0;
+      box-shadow: 0 4px #a33d45;
+    }
+    #clear:active {
+      top: 4px;
+      box-shadow: none;
+    }
+  </style>
+  <script>
+    let currentInput = "";
+    let resultDisplayed = false;
+
+    const inputField = document.getElementById("answer");
+    const numberButtons = document.querySelectorAll(".num");
+    const operatorButtons = document.querySelectorAll(".operator");
+    const clearButton = document.getElementById("clear");
+    const equalsButton = document.getElementById("equals");
+
+    
+    numberButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        if (resultDisplayed) {
+          currentInput = button.value;
+          resultDisplayed = false;
+        } else {
+          currentInput += button.value;
+        }
+        inputField.value = currentInput;
+      });
+    });
+
+    
+    operatorButtons.forEach(button => {
+      button.addEventListener("click", () => {
+        if (!resultDisplayed) {
+          currentInput += " " + button.value + " ";
+          inputField.value = currentInput;
+        }
+      });
+    });
+
+    
+    clearButton.addEventListener("click", () => {
+      currentInput = "";
+      inputField.value = "";
+    });
+
+    equalsButton.addEventListener("click", () => {
+      try {
+        currentInput = eval(currentInput);
+        inputField.value = currentInput;
+        resultDisplayed = true;
+      } catch (error) {
+        inputField.value = "Error";
+      }
+    });
+  </script>
+
